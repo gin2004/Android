@@ -1,0 +1,38 @@
+# Thư mục build và các tệp tạm của Gradle
+.gradle/
+build/
+/*/build/
+
+# Cấu hình cá nhân (chứa đường dẫn SDK, v.v.)
+local.properties
+
+# Tệp của IntelliJ IDEA (Android Studio)
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetDropDown.xml
+*.iml
+
+# Các tệp log
+*.log
+
+# Thư mục Captures (Memory dumps, v.v.)
+captures/
+
+# Native build (nếu có dùng C/C++)
+.externalNativeBuild
+.cxx
+
+# Tệp hệ điều hành
+.DS_Store
+Thumbs.db
+
+# Keystore (Không nên đưa khóa ký ứng dụng lên GitHub)
+*.jks
+*.keystore
+
+# Tệp đầu ra của Bundle tool
+*.apks
