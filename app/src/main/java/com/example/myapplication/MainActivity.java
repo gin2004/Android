@@ -56,20 +56,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void addPhong() {
+        if (validateInput()) {
+            Phong p = getInputData();
+            phongList.add(p);
+            adapter.notifyItemInserted(phongList.size() - 1);
+            clearInputs();
+            Toast.makeText(this, "Thêm phòng thành công!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Phong getInputData() {
+        String ma = txtMaPhong.getText().toString().trim();
+        String ten = txtTenPhong.getText().toString().trim();
+        double gia = Double.parseDouble(txtGiaThue.getText().toString().trim());
+        String tinhTrang = spinnerTinhTrang.getSelectedItem().toString();
+        String nguoi = txtTenNguoi.getText().toString().trim();
+        String sdt = txtSdt.getText().toString().trim();
 
 
+        return new Phong(ma, ten, nguoi, sdt, tinhTrang, gia);
+    }
 
+    private boolean validateInput() {
+        if (txtMaPhong.getText().toString().trim().isEmpty() ||
+                txtTenPhong.getText().toString().trim().isEmpty() ||
+                txtGiaThue.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Mã, tên và giá phòng không được để trống!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+    private void clearInputs() {
+        txtMaPhong.setText("");
+        txtTenPhong.setText("");
+        txtGiaThue.setText("");
+        txtTenNguoi.setText("");
+        txtSdt.setText("");
+        spinnerTinhTrang.setSelection(0);
+        txtMaPhong.requestFocus();
+    }
 
 }
