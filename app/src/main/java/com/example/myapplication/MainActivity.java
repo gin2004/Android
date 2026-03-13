@@ -1,24 +1,75 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.model.Phong;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText txtMaPhong, txtTenPhong, txtGiaThue, txtTenNguoi, txtSdt;
+    private Spinner spinnerTinhTrang;
+    private Button btnThem, btnSua;
+    private RecyclerView recyclerView;
+    private PhongAdapter adapter;
+    private List<Phong> phongList;
+    private int editingPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        initViews();
+
     }
+
+    private void initViews() {
+        txtMaPhong = findViewById(R.id.txtMaPhong);
+        txtTenPhong = findViewById(R.id.txtTenPhong);
+        txtGiaThue = findViewById(R.id.txtGiaThue);
+        txtTenNguoi = findViewById(R.id.txtTenNguoi);
+        txtSdt = findViewById(R.id.txtSdt);
+        spinnerTinhTrang = findViewById(R.id.spinnerTinhTrang);
+        btnThem = findViewById(R.id.btnThem);
+        btnSua = findViewById(R.id.btnSua);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        // Clear default text from layout if any
+        txtMaPhong.setText("");
+        txtTenPhong.setText("");
+        txtGiaThue.setText("");
+        txtTenNguoi.setText("");
+        txtSdt.setText("");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
