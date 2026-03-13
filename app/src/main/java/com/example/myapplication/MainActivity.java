@@ -55,6 +55,40 @@ public class MainActivity extends AppCompatActivity {
         txtSdt.setText("");
     }
 
+    private void setupSpinner() {
+       String[] tinhTrangArray = {"Còn trống", "Đã thuê"};
+       ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tinhTrangArray);
+       spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       spinnerTinhTrang.setAdapter(spinnerAdapter);
+   }
+
+
+   private void setupRecyclerView() {
+       phongList = new ArrayList<>();
+       // Dữ liệu mẫu ban đầu
+       phongList.add(new Phong("P101", "Phòng 101", "Nguyễn Văn A", "0987654321", "Đã thuê", 2500000));
+       phongList.add(new Phong("P102", "Phòng 102", "", "", "Còn trống", 2200000));
+
+
+       adapter = new PhongAdapter(this, phongList, new PhongAdapter.OnItemClickListener() {
+           @Override
+           public void onItemClick(Phong phong, int position) {
+               fillDataToInputs(phong, position);
+           }
+
+
+           @Override
+           public void onDeleteClick(Phong phong, int position) {
+               showDeleteConfirmDialog(position);
+           }
+       });
+
+
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       recyclerView.setAdapter(adapter);
+   }
+
+
 
     private void addPhong() {
         if (validateInput()) {
@@ -65,6 +99,25 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Thêm phòng thành công!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void showDeleteConfirmDialog(int position) {
+       new AlertDialog.Builder(this)
+               .setTitle("Xác nhận xóa")
+               .setMessage("Bạn có chắc chắn muốn xóa phòng này không?")
+               .setPositiveButton("Xóa", (dialog, which) -> {
+                   phongList.remove(position);
+                   adapter.notifyItemRemoved(position);
+                   adapter.notifyItemRangeChanged(position, phongList.size());
+                   if (editingPosition == position) {
+                       clearInputs();
+                       editingPosition = -1;
+                   }
+                   Toast.makeText(this, "Đã xóa phòng!", Toast.LENGTH_SHORT).show();
+               })
+               .setNegativeButton("Hủy", null)
+               .show();
+   }
+
 
     private Phong getInputData() {
         String ma = txtMaPhong.getText().toString().trim();
